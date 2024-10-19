@@ -20,8 +20,12 @@ resource "random_integer" "unique_name" {
 resource "random_pet" "boundary_admin_password" {
   length = 4
 }
-
+resource "hcp_project" "project" {
+  name        = "instruqt-${random_pet.unique_name.id}"
+  description = "Project Created by Instruqt Boundary Demo Lab"
+}
 resource "hcp_boundary_cluster" "boundary_demo" {
+  project_id = hcp_project.project.resource_id
   cluster_id = substr(local.unique_name, 0, 32)
   username   = var.boundary_admin_login
   password   = random_pet.boundary_admin_password.id

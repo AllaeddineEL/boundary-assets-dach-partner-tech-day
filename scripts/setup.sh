@@ -84,8 +84,8 @@ should not include portions of the URL following the port number."
 
 boundary_cluster_info_success=false
 
-echo "$boundary_cluster_info_text"
-echo ""
+#echo "$boundary_cluster_info_text"
+#echo ""
 while [ $boundary_cluster_info_success != "true" ]; do
   if [[ -z "$BOUNDARY_TOKEN" || -z "$TF_VAR_boundary_cluster_admin_url" ]]; then
     echo "This script can create the HCP Boundary cluster for you.  Note that "
@@ -95,12 +95,12 @@ while [ $boundary_cluster_info_success != "true" ]; do
     if ! echo $create_boundary_answer | grep -E -i '^n$|^no$' > /dev/null; then
       create_boundary=true
       if [ -z "$HCP_CLIENT_ID" ]; then
-        read -p "HCP service principal client ID: " hcp_user_client_id
-        HCP_CLIENT_ID="$hcp_user_client_id"
+        #read -p "HCP service principal client ID: " hcp_user_client_id
+        HCP_CLIENT_ID="$CDL_TEST_HCP_ORG_LEVEL_CLIENT_ID"
       fi
       if [ -z "$HCP_CLIENT_SECRET" ]; then
-        read -sp "HCP service principal client secret (not shown): " hcp_user_client_secret
-        HCP_CLIENT_SECRET="$hcp_user_client_secret"
+        #read -sp "HCP service principal client secret (not shown): " hcp_user_client_secret
+        HCP_CLIENT_SECRET="$CDL_TEST_HCP_ORG_LEVEL_CLIENT_SECRET"
       fi
       echo ""
     else
