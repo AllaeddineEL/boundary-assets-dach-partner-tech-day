@@ -37,6 +37,10 @@ output "aws_ssh_keypair_app_infra" {
   description = "The name of the app infrastructure AWS SSH keypair."
   value       = aws_key_pair.app_infra.key_name
 }
+output "aws_ssh_keypair_app_infra_win" {
+  description = "The name of the app infrastructure AWS SSH keypair."
+  value       = aws_key_pair.app_infra_win.key_name
+}
 
 output "app_infra_ssh_privkey" {
   description = "The raw content of the app infrastructure SSH private key."
@@ -45,5 +49,5 @@ output "app_infra_ssh_privkey" {
 
 output "aws_bucket_name" {
   description = "The name of the S3 bucket created to store Boundary Session Recordings"
-  value = aws_s3_bucket.boundary_recording_bucket.bucket
+  value       = aws_s3_bucket.boundary_recording_bucket.bucket
 }

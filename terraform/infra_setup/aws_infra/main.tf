@@ -73,7 +73,21 @@ resource "local_file" "aws_infra_ssh_privkey" {
   filename        = "${path.root}/gen_files/ssh_keys/app_infra"
   file_permission = "0600"
 }
+resource "tls_private_key" "aws_infra_ssh_key_win" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
 
+resource "aws_key_pair" "app_infra_win" {
+  key_name   = "${var.unique_name}-app-infra-win"
+  public_key = tls_private_key.aws_infra_ssh_key_win.public_key_openssh
+}
+
+resource "local_file" "aws_infra_ssh_privkey_win" {
+  content         = tls_private_key.aws_infra_ssh_key_win.private_key_openssh
+  filename        = "${path.root}/gen_files/ssh_keys/app_infra_win"
+  file_permission = "0600"
+}
 resource "aws_vpc" "boundary_demo" {
   cidr_block           = var.aws_vpc_cidr
   enable_dns_hostnames = true
