@@ -117,7 +117,7 @@ locals {
     ]
     runcmd = [
       ["systemctl", "disable", "--now", "unattended-upgrades.service", "apt-daily-upgrade.service", "apt-daily-upgrade.timer"],
-      ["apt", "install", "-y", "software-properties-common"],
+      ["apt", "install", "-y", "software-properties-common", "jq"],
       ["apt-add-repository", "universe"],
       ["sh", "-c", "gpg --dearmor < /tmp/hashicorp-archive-keyring.gpg > /usr/share/keyrings/hashicorp-archive-keyring.gpg"],
       ["sh", "-c", "gpg --dearmor < /tmp/kubernetes-archive-keyring.gpg > /usr/share/keyrings/kubernetes-archive-keyring.gpg"],
