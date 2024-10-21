@@ -99,7 +99,7 @@ module "domain_controller" {
   domain_controller_instance_type = var.aws_domain_controller_node_instance_type
   domain_controller_subnet_id     = module.aws_infra.aws_subnet_private_id
   domain_controller_secgroup_id   = module.aws_infra.aws_secgroup_private_id
-  domain_controller_ssh_keypair   = module.aws_infra.aws_ssh_keypair_app_infra
+  domain_controller_ssh_keypair   = module.aws_infra.aws_ssh_keypair_app_infra_win
 }
 
 module "vault_server" {

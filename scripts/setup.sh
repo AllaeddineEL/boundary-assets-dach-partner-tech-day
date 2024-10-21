@@ -88,10 +88,11 @@ boundary_cluster_info_success=false
 #echo ""
 while [ $boundary_cluster_info_success != "true" ]; do
   if [[ -z "$BOUNDARY_TOKEN" || -z "$TF_VAR_boundary_cluster_admin_url" ]]; then
-    echo "This script can create the HCP Boundary cluster for you.  Note that "
-    echo "if it already exists, this script will fail and you will need to "
-    echo "re-run it with the login info for your existing cluster."
-    read -p "Create Boundary cluster in HCP (default: yes)? " create_boundary_answer
+    # echo "This script can create the HCP Boundary cluster for you.  Note that "
+    # echo "if it already exists, this script will fail and you will need to "
+    # echo "re-run it with the login info for your existing cluster."
+    #read -p "Create Boundary cluster in HCP (default: yes)? " create_boundary_answer
+    create_boundary_answer="yes"
     if ! echo $create_boundary_answer | grep -E -i '^n$|^no$' > /dev/null; then
       create_boundary=true
       if [ -z "$HCP_CLIENT_ID" ]; then
@@ -153,66 +154,49 @@ done
 
 echo "$default_setup_info_text"
 echo ""
-read -p "Do you want to accept the default track setup (default: yes)? " defaults_answer
+#read -p "Do you want to accept the default track setup (default: yes)? " defaults_answer
+defaults_answer="yes"
 if echo $defaults_answer | grep -E -i '^n$|^no$' > /dev/null; then
-  echo "$target_k8s_info_text"
+  #echo "$target_k8s_info_text"
   echo ""
-  read -p "Do you want to create the Kubernetes cluster as described (default: yes)? " k8s_answer
+  #read -p "Do you want to create the Kubernetes cluster as described (default: yes)? " k8s_answer
+  k8s_answer="yes"
   if echo $k8s_answer | grep -E -i '^n$|^no$' ; then
     TF_VAR_create_k8s=false
   fi
-  echo "$target_db_info_text"
-  echo ""
+  #echo "$target_db_info_text"
+  #echo ""
   read -p "Do you want to create the Postgres instance as described (default: yes)? " db_answer
+  db_answer="yes"
   if echo $db_answer | grep -E -i '^n$|^no$' ; then
     TF_VAR_create_postgres=false
   fi
 fi
 
-if [[ -z "$TF_VAR_admin_ip_additional" ]]; then
-  echo "$admin_ip_info_text"
-  echo ""
-  read -p "(optional) Additional IP to allow connections from (Enter to skip): " admin_ip_additional
-  if [[ ! -z "$admin_ip_additional" ]] ; then
-    if [[ ! "$admin_ip_additional" =~ /[0-9]{1,2}$ ]] ; then
-      TF_VAR_admin_ip_additional="${admin_ip_additional}/32"
-    else
-      TF_VAR_admin_ip_additional="$admin_ip_additional"
-    fi
-  else
-    TF_VAR_admin_ip_additional=""
-  fi
-else
-  echo "Re-using previously-provided admin IP: $TF_VAR_admin_ip_additional"
-fi
 
-export TF_VAR_admin_ip_additional
-if ! grep "export TF_VAR_admin_ip_additional=\"$TF_VAR_admin_ip_additional\"" ~/.${INSTRUQT_PARTICIPANT_ID}-env.sh >/dev/null 2>&1; then
-  echo "export TF_VAR_admin_ip_additional=\"$TF_VAR_admin_ip_additional\"" >> ~/.${INSTRUQT_PARTICIPANT_ID}-env.sh
-fi
 
-if [[ $TF_VAR_create_k8s || $TF_VAR_create_postgres || $create_boundary ]]; then
-  echo ""
-fi
+# if [[ $TF_VAR_create_k8s || $TF_VAR_create_postgres || $create_boundary ]]; then
+#   echo ""
+# fi
 
-if $create_boundary ; then
-  echo "Will create the Boundary cluster."
-fi
+# if $create_boundary ; then
+#   echo "Will create the Boundary cluster."
+# fi
 
-if $TF_VAR_create_k8s ; then
-  echo "Will create the Kubernetes cluster."
-fi
+# if $TF_VAR_create_k8s ; then
+#   echo "Will create the Kubernetes cluster."
+# fi
 
-if $TF_VAR_create_postgres ; then
-  echo "Will create the Postgres database instance."
-fi
+# if $TF_VAR_create_postgres ; then
+#   echo "Will create the Postgres database instance."
+# fi
 
-if [[ ! -z "$TF_VAR_admin_ip_additional" ]] ; then
-  echo ""
-  echo "Will allow access to this IP: $TF_VAR_admin_ip_additional"
-fi
+# if [[ ! -z "$TF_VAR_admin_ip_additional" ]] ; then
+#   echo ""
+#   echo "Will allow access to this IP: $TF_VAR_admin_ip_additional"
+# fi
 
-read -p "If everything above looks correct, press Enter to deploy the infrastructure." wait_for_ok
+#read -p "If everything above looks correct, press Enter to deploy the infrastructure." wait_for_ok
 
 if $create_boundary ; then
   cd ${TF_BASE}/hcp
