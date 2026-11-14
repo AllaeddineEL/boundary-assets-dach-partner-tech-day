@@ -131,7 +131,8 @@ locals {
       ["systemctl", "disable", "--now", "boundary"],
       ["systemctl", "enable", "--now", "apt-daily-upgrade.service", "apt-daily-upgrade.timer", "docker"],
       ["mkdir", "/boundary_storage"],
-      ["chmod", "777", "/boundary_storage"]
+      ["chmod", "777", "/boundary_storage"],
+      ["systemctl", "start", "boundary.service"]
     ]
   }
 }
