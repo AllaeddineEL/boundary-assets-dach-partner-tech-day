@@ -38,6 +38,7 @@ locals {
   }
 
   boundary_k8s_worker_config = <<-WORKER_CONFIG
+    disable_mlock = true
     listener "tcp" {
       purpose = "proxy"
       address = "0.0.0.0"
