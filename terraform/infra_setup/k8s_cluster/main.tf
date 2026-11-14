@@ -136,7 +136,8 @@ locals {
       ["sh", "-c", "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash"],
       ["helm", "repo", "add", "bitnami", "https://charts.bitnami.com/bitnami"],
       ["sh", "-c", "KUBECONFIG=/etc/rancher/k3s/k3s.yaml helm install k8s-postgres --set auth.postgresPassword=${random_pet.postgres_k8s_admin_password.id} bitnami/postgresql"],
-      ["sh", "-c", "KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl create configmap boundary-worker-nodeport --from-file /etc/boundary_worker_nodeport"]
+      ["sh", "-c", "KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl create configmap boundary-worker-nodeport --from-file /etc/boundary_worker_nodeport"],
+      ["sh", "-c", "cd /tmp/k8s_manifests/boundary_worker/ && KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl apply -f ."]
     ]
   }
 
