@@ -38,14 +38,14 @@ output "aws_secgroup_private" {
   value       = module.aws_infra.aws_secgroup_private_id
 }
 
-output "boundary_worker_ip_public" {
-  description = "The public IP of the Boundary worker."
-  value       = module.boundary_setup.boundary_worker_ip_public
+output "boundary_worker_ip_private" {
+  description = "The private IP of the Boundary worker."
+  value       = module.boundary_setup.boundary_worker_ip_private
 }
 
-output "boundary_worker_dns_public" {
-  description = "The public DNS of the Boundary worker."
-  value       = module.boundary_setup.boundary_worker_dns_public
+output "boundary_worker_dns_private" {
+  description = "The private DNS of the Boundary worker."
+  value       = module.boundary_setup.boundary_worker_dns_private
 }
 
 output "postgres_server" {
@@ -75,5 +75,5 @@ output "domain_controller" {
 
 output "aws_bucket_name" {
   description = "The name of the S3 bucket created to store Boundary Session Recordings"
-  value = module.aws_infra.aws_bucket_name
+  value       = module.aws_infra.aws_bucket_name
 }

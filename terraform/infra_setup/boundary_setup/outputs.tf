@@ -1,11 +1,11 @@
-output "boundary_worker_ip_public" {
-  description = "The public IP of the Boundary worker."
-  value       = aws_instance.boundary_worker.public_ip
+output "boundary_worker_ip_private" {
+  description = "The private IP of the Boundary worker."
+  value       = aws_instance.boundary_worker.private_ip
 }
 
-output "boundary_worker_dns_public" {
+output "boundary_worker_dns_private" {
   description = "The public DNS of the Boundary worker."
-  value       = aws_instance.boundary_worker.public_dns
+  value       = aws_instance.boundary_worker.private_dns
 }
 
 output "aws_ssh_keypair_boundary_infra" {
