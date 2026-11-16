@@ -220,7 +220,7 @@ resource "aws_iam_policy_attachment" "session_recording_policy" {
 
 
 resource "aws_instance" "boundary_worker" {
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   ami                         = var.aws_ami
   subnet_id                   = var.boundary_worker_subnet_id
   instance_type               = var.boundary_worker_instance_type
