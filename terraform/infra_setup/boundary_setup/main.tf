@@ -60,7 +60,7 @@ locals {
 
     worker {
       auth_storage_path = "/etc/boundary-worker-data"
-      public_addr = "file:///etc/public_dns"
+      #public_addr = "file:///etc/public_dns"
       controller_generated_activation_token = "${boundary_worker.hcp_pki_instance_worker.controller_generated_activation_token}"
       recording_storage_path="/boundary_storage"
 
