@@ -217,7 +217,10 @@ locals {
       ["systemctl", "enable", "--now", "apt-daily-upgrade.service", "apt-daily-upgrade.timer", "docker", "vault", "vault-init", "vault-init-postgres"],
       ["sh", "-c", "echo \"\" >> /root/.bash_profile"],
       ["sh", "-c", "echo \"source /etc/vault.d/vault.env\" >> /root/.bash_profile"],
-      ["sh", "-c", "echo \"export VAULT_ADDR VAULT_TOKEN\" >> /root/.bash_profile"]
+      ["sh", "-c", "echo \"export VAULT_ADDR VAULT_TOKEN\" >> /root/.bash_profile"],
+      ["sh", "-c", "echo \"\" >> /ubuntu/.bash_profile"],
+      ["sh", "-c", "echo \"source /etc/vault.d/vault.env\" >> /ubuntu/.bash_profile"],
+      ["sh", "-c", "echo \"export VAULT_ADDR VAULT_TOKEN\" >> /ubuntu/.bash_profile"]
     ]
   }
 }
