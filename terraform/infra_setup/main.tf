@@ -79,7 +79,7 @@ module "k8s_cluster" {
   aws_vpc                            = module.aws_infra.aws_vpc
   aws_ami                            = module.aws_infra.aws_ami_ubuntu
   boundary_cluster_admin_url         = var.boundary_cluster_admin_url
-  boundary_instance_worker_addr      = "${module.boundary_setup.boundary_worker_dns_public}:9202"
+  boundary_instance_worker_addr      = "${module.boundary_setup.boundary_worker_dns_private}:9202"
   k8s_instance_type                  = var.aws_k8s_node_instance_type
   k8s_subnet_id                      = module.aws_infra.aws_subnet_private_id
   k8s_secgroup_id                    = module.aws_infra.aws_secgroup_private_id
