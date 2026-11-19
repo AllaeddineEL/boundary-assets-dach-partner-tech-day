@@ -221,8 +221,8 @@ locals {
       ["sh", "-c", "echo \"\" >> /home/ubuntu/.bash_profile"],
       ["sh", "-c", "echo \"source /etc/vault.d/vault.env\" >> /home/ubuntu/.bash_profile"],
       ["sh", "-c", "echo \"export VAULT_ADDR VAULT_TOKEN\" >> /home/ubuntu/.bash_profile"],
-      ["sh", "-c", "source /etc/vault.d/vault.env && export VAULT_ADDR VAULT_TOKEN && vault policy write boundary-token /opt/vault/boundary_token_policy.hcl"],
-      ["sh", "-c", "source /etc/vault.d/vault.env && export VAULT_ADDR VAULT_TOKEN && vault policy write boundary-database-secrets /opt/vault/boundary_database_secret_policy.hcl"]
+      ["sh", "-c", ". /etc/vault.d/vault.env && export VAULT_ADDR VAULT_TOKEN && vault policy write boundary-token /opt/vault/boundary_token_policy.hcl"],
+      ["sh", "-c", ". /etc/vault.d/vault.env && export VAULT_ADDR VAULT_TOKEN && vault policy write boundary-database-secrets /opt/vault/boundary_database_secret_policy.hcl"]
     ]
   }
 }
