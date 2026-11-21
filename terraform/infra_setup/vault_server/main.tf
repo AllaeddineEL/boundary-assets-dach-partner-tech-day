@@ -60,6 +60,11 @@ locals {
       exit 0
     fi
 
+    while ! nc -z $PG_HOST 5432; do
+      echo "Waiting for Postgres DB to be available"
+      sleep 1
+    done
+
     vault secrets enable -path postgres database
 
     vault write postgres/config/product-api \
