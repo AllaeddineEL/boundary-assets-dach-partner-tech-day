@@ -1,0 +1,1 @@
+boundary connect tcp -keyring-type=none -token env://BOUNDARY_TOKEN -target-name vault_server_web -target-scope-name "Demo web application" -listen-addr=127.0.0.1 -listen-port=8200 -inactive-timeout=-1 &> /dev/null &

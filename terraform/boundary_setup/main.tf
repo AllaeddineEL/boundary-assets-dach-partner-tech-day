@@ -462,7 +462,7 @@ resource "boundary_credential_store_static" "windows_rdp_creds" {
 resource "boundary_credential_username_password" "windows_rdp_creds" {
   name                = "windows_rdp_creds"
   credential_store_id = boundary_credential_store_static.windows_rdp_creds.id
-  username            = "instruqt"
+  username            = "Administrator"
   password            = var.win_rdp_password
 }
 

@@ -31,5 +31,5 @@ variable "home_dir" {
 variable "win_rdp_password" {
   type      = string
   sensitive = true
-  default   = "Passw0rd!"
+  default   = "LongPassword12345!"
 }
