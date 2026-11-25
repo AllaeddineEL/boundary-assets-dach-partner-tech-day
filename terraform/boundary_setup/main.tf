@@ -18,6 +18,10 @@ terraform {
       source  = "hashicorp/external"
       version = ">= 2.3"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.14"
+    }
   }
 }
 
@@ -171,7 +175,10 @@ resource "aws_iam_user_policy_attachment" "boundary_host_catalog" {
 resource "aws_iam_access_key" "boundary_host_catalog" {
   user = aws_iam_user.boundary_host_catalog.name
 }
-
+resource "time_sleep" "wait_for_iam" {
+  depends_on      = [aws_iam_user_policy_attachment.boundary_host_catalog]
+  create_duration = "10s"
+}
 resource "boundary_host_catalog_plugin" "app_infra" {
   name        = "app_infra"
   description = "App infrastructure hosts"
@@ -188,7 +195,7 @@ resource "boundary_host_catalog_plugin" "app_infra" {
     secret_access_key = aws_iam_access_key.boundary_host_catalog.secret
   })
 
-  depends_on = [aws_iam_user_policy_attachment.boundary_host_catalog]
+  depends_on = [time_sleep.wait_for_iam]
 }
 
 resource "boundary_host_set_plugin" "vault_servers" {
