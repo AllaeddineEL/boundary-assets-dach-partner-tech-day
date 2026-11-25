@@ -16,10 +16,7 @@ terraform {
 
 
 provider "boundary" {
-  addr                   = data.tfe_outputs.boundary_demo_init.values.boundary_url
-  auth_method_id         = data.tfe_outputs.boundary_demo_init.values.boundary_admin_auth_method
-  auth_method_login_name = var.boundary_user
-  auth_method_password   = var.boundary_password
+  addr = var.boundary_cluster_admin_url
 }
 
 provider "vault" {

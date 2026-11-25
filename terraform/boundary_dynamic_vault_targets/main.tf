@@ -86,8 +86,8 @@ resource "vault_token" "boundary-token-it" {
 resource "boundary_credential_store_vault" "it_vault" {
   name        = "it_vault"
   description = "IT Vault Credential Store"
-  
-  address     = local.vault_server_addr
+  worker_filter = local.egress_vm_filter
+  address     = "http://${local.vault_server_addr}:8200"
   token       = vault_token.boundary-token-it.client_token
   scope_id    = data.terraform_remote_state.boundary_setup.outputs.project_id
 }

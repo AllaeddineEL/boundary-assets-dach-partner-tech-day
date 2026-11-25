@@ -503,3 +503,27 @@ resource "boundary_alias_target" "postgres_kube" {
   value          = "k8s-pg.hashidemos.local"
   destination_id = boundary_target.postgres_kube.id
 }
+
+###############################################################################
+# Kubernetes SSH target
+###############################################################################
+
+resource "boundary_target" "k8s_server_ssh" {
+  type                     = "ssh"
+  name                     = "k8s_server_ssh"
+  scope_id                 = boundary_scope.project.id
+  default_port             = 22
+  egress_worker_filter     = local.egress_vm_filter
+  storage_bucket_id        = boundary_storage_bucket.recordings.id
+  enable_session_recording = true
+
+  host_source_ids                            = [boundary_host_set_plugin.kubernetes_nodes.id]
+  injected_application_credential_source_ids = [boundary_credential_ssh_private_key.app_ssh_key.id]
+}
+
+resource "boundary_alias_target" "k8s_server_ssh" {
+  name           = "k8s_server_ssh"
+  scope_id       = "global"
+  value          = "k8s-ssh.hashidemos.local"
+  destination_id = boundary_target.k8s_server_ssh.id
+}
